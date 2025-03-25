@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResuMate - AI-Powered Resume Tailoring</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
+  <style>
+    :root {
+      --primary: #10b981;
+      --accent: #16a34a;
+      --light-bg: #f6fefb;
+      --dark-bg: #0f172a;
+      --dark-text: #f3f4f6;
+      --light-text: #0f172a;
+    }
+    [data-theme="dark"] {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    header {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color: white;
+      padding: 6rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    header p {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+      opacity: 0.95;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .logo {
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      background: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .cta {
+      margin-top: 2.5rem;
+    }
+    .cta button {
+      background: white;
+      color: var(--primary);
+      padding: 1rem 2.75rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    }
+    .cta button:hover {
+      background: #d1fae5;
+      transform: translateY(-3px);
+    }
+    section {
+      max-width: 1280px;
+      margin: 6rem auto;
+      padding: 0 2rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 3rem;
+    }
+    .feature {
+      background: white;
+      padding: 3rem;
+      border-radius: 2rem;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.07);
+      transition: all 0.3s ease;
+      text-align: left;
+      position: relative;
+    }
+    .feature h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .feature p {
+      font-size: 1.15rem;
+      color: #475569;
+    }
+    .upload-box, .pricing-box {
+      margin-top: 6rem;
+      padding: 4rem;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .upload-box h2, .pricing-box h2 {
+      font-size: 2.6rem;
+      margin-bottom: 2rem;
+    }
+    .upload-box input[type="file"] {
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid #a7f3d0;
+      border-radius: 0.75rem;
+      background-color: #f9fafb;
+    }
+    .output {
+      margin-top: 2rem;
+      background-color: #f0fdf4;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      text-align: left;
+      font-size: 1.1rem;
+      color: #065f46;
+      border: 1px solid #bbf7d0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    }
+    form {
+      margin-top: 2rem;
+    }
+    input[type="email"] {
+      padding: 1rem;
+      width: 300px;
+      max-width: 90%;
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    button[type="submit"] {
+      margin-left: 1rem;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 6rem;
+      text-align: center;
+      padding: 3rem 2rem;
+      background-color: #ecfdf5;
+      font-size: 1rem;
+      color: #065f46;
+    }
+  </style>
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <header>
+    <div class="logo">ResuMate</div>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    <h1>ResuMate</h1>
+    <p>AI-Powered Resume Tailoring That Gets You Noticed — Instantly.</p>
+    <div class="cta">
+      <button onclick="document.getElementById('upload').scrollIntoView({ behavior: 'smooth' });">
+        Try It Now
+      </button>
+    </div>
+  </header>
+
+  <section>
+    <div class="features">
+      <div class="feature">
+        <h3>Smart Matching</h3>
+        <p>Advanced AI scans job descriptions to recommend keyword enhancements and phrasing updates that align your resume perfectly with target roles.</p>
+      </div>
+      <div class="feature">
+        <h3>Real-Time Feedback</h3>
+        <p>Instant guidance on resume structure, grammar, clarity, and ATS-compatibility—tailored to your specific goals.</p>
+      </div>
+      <div class="feature">
+        <h3>Tailored Insights</h3>
+        <p>Get detailed suggestions customized for your industry and experience level, so your application rises above the rest.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="upload">
+    <div class="upload-box">
+      <h2>Upload Your Resume</h2>
+      <input type="file" id="resumeFile" accept=".txt,.pdf,.doc,.docx" />
+      <div class="output" id="output"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="pricing-box">
+      <h2>Join the Waitlist</h2>
+      <form>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 ResuMate. All rights reserved.
+  </footer>
+
+  <script>
+    tsParticles.load("tsparticles", {
+      background: { color: { value: "transparent" } },
+      particles: {
+        color: { value: "#10b981" },
+        links: { enable: true, color: "#10b981" },
+        move: { enable: true, speed: 1 },
+        size: { value: { min: 1, max: 3 } },
+        number: { value: 50 },
+        opacity: { value: 0.5 }
+      },
+      interactivity: { events: { onHover: { enable: true, mode: "repulse" } } },
+    });
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const theme = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+    }
+
+    document.getElementById('resumeFile').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const output = document.getElementById('output');
+      if (!file) return;
+
+      output.innerHTML = '<em>Analyzing your resume...</em>';
+
+      setTimeout(() => {
+        output.innerHTML = `
+          <strong>AI Suggestions:</strong>
+          <ul>
+            <li>Include more keywords related to "project management".</li>
+            <li>Clarify your role in the XYZ initiative.</li>
+            <li>Add quantifiable metrics for achievements (e.g., increased sales by 30%).</li>
+          </ul>
+        `;
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
